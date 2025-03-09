@@ -12,7 +12,7 @@ import com.example.examen1.components.*
 import com.example.examen1.models.categories
 import com.example.examen1.models.foods
 import com.example.examen1.models.restaurants
-import com.example.examen1.ui.theme.primaryColor
+
 
 @Composable
 fun MainFrame() {
@@ -34,7 +34,7 @@ fun MainFrame() {
             Text(
                 text = "Nuestras categorías",
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 20.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
             )
             CategoryCarouselComponent(categories = categories)
 
@@ -42,7 +42,7 @@ fun MainFrame() {
             Text(
                 text = "Busca los mejores restaurantes",
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 20.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
             )
             RestaurantCarouselComponent(restaurants = restaurants)
 
@@ -50,7 +50,7 @@ fun MainFrame() {
             Text(
                 text = "Nuestras mejores comidas",
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 20.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
             )
             FoodGridComponent(foods = foods)
         }
