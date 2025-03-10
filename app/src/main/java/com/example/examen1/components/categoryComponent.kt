@@ -1,6 +1,5 @@
 package com.example.examen1.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -14,10 +13,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.rememberAsyncImagePainter
-import com.example.examen1.models.categories
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.examen1.models.Category
+import com.example.examen1.models.categories
 
+
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CategoryCarouselComponent(categories: List<Category>) {
     LazyRow(
@@ -38,8 +40,8 @@ fun CategoryCarouselComponent(categories: List<Category>) {
                         .background(Color(0xFFFF7043)), // Color de ejemplo
                     contentAlignment = Alignment.Center
                 ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(model = category.imageUrl),
+                    GlideImage(
+                        model = category.imageUrl,
                         contentDescription = category.name,
                         modifier = Modifier.size(40.dp)
                     )

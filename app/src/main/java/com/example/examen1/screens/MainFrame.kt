@@ -15,10 +15,14 @@ import com.example.examen1.models.restaurants
 
 
 @Composable
-fun MainFrame() {
+fun MainFrame(innerPadding: PaddingValues) {
     Scaffold(
+
+
         topBar = {
+
             HeaderComponent(
+
                 userName = "Yisus",
                 onExitClick = { /* Acción de salir o navegar */ }
             )
@@ -60,6 +64,6 @@ fun MainFrame() {
 @Preview(showBackground = true)
 @Composable
 fun MainFramePreview() {
-    MainFrame()
+    MainFrame(innerPadding = PaddingValues(20.dp))
 }
 

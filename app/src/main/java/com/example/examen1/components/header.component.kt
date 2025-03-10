@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.examen1.ui.theme.primaryColor
 
 @Composable
 fun HeaderComponent(
@@ -25,18 +26,18 @@ fun HeaderComponent(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(start = 16.dp, end = 16.dp, top = 50.dp, bottom = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-
+        // Sección izquierda: ícono de usuario y saludo
         Row(verticalAlignment = Alignment.CenterVertically) {
+            // Ícono de usuario dentro de un Box circular
             Box(
                 modifier = Modifier
                     .size(32.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFFF7043)),
+                    .background(Color(0xFFFF7043)), // Color naranja
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -52,13 +53,12 @@ fun HeaderComponent(
                 color = Color.Black
             )
         }
-
-        // Sección derecha: ícono de salida circular
+        // Sección derecha: ícono de salida
         Box(
             modifier = Modifier
                 .size(32.dp)
                 .clip(CircleShape)
-                .background(Color(0xFFFF7043)), // Naranja
+                .background(Color(0xFFFF7043)),
             contentAlignment = Alignment.Center
         ) {
             IconButton(

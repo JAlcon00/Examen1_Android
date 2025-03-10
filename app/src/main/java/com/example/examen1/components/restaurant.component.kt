@@ -1,23 +1,25 @@
 package com.example.examen1.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.example.examen1.models.Restaurant
 import com.example.examen1.models.restaurants
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RestaurantCarouselComponent(restaurants: List<Restaurant>) {
     LazyRow(
@@ -27,29 +29,49 @@ fun RestaurantCarouselComponent(restaurants: List<Restaurant>) {
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(restaurants) { restaurant ->
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+            RestaurantItem(restaurant = restaurant)
+        }
+    }
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+fun RestaurantItem(restaurant: Restaurant) {
+    Card(
+        modifier = Modifier
+            .width(120.dp) // Mantienes el ancho del Card
+            .padding(vertical = 4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Contenedor para la imagen
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(80.dp), // Mantienes la altura del Card para la sección de la imagen
+                contentAlignment = Alignment.Center // Centra la imagen
             ) {
-                // Contenedor circular para la imagen
-                Box(
+                // Imagen más pequeña
+                GlideImage(
+                    model = restaurant.imageUrl,
+                    contentDescription = restaurant.name,
                     modifier = Modifier
-                        .size(70.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFFF44336)), // Color de ejemplo (rojo claro)
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(model = restaurant.imageUrl),
-                        contentDescription = restaurant.name,
-                        modifier = Modifier.size(40.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // Nombre del restaurante
-                Text(text = restaurant.name)
+                        .size(60.dp),   // Ajusta el tamaño de la imagen a lo que necesites
+                    contentScale = ContentScale.Crop
+                )
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Nombre del restaurante
+            Text(
+                text = restaurant.name,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
+            )
         }
     }
 }
@@ -57,6 +79,5 @@ fun RestaurantCarouselComponent(restaurants: List<Restaurant>) {
 @Preview(showBackground = true)
 @Composable
 fun RestaurantCarouselComponentPreview() {
-    // Vista previa para verificar la apariencia del carrusel
     RestaurantCarouselComponent(restaurants = restaurants)
 }
