@@ -43,64 +43,68 @@ fun FoodGridComponent(foods: List<Food>) {
 fun FoodCardItem(food: Food) {
     Card(
         modifier = Modifier
-            .padding(4.dp)
             .fillMaxWidth()
-            .background(Color.White)
-        ,
+            .padding(4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            // Imagen en la parte superior
-            GlideImage(
-                model = food.imageUrl,
-                contentDescription = food.name,
+        Column {
+            // Contenedor de la imagen y la etiqueta de precio
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp),
-                contentScale = ContentScale.Crop
-            )
+                    .height(120.dp)
+            ) {
+                // Imagen de fondo
+                GlideImage(
+                    model = food.imageUrl,
+                    contentDescription = food.name,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                // Etiqueta de precio superpuesta (top-end)
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(8.dp)
+                        .clip(MaterialTheme.shapes.small)
+                        .background(Color(0xFFFF5A5A))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = "$${food.price}",
+                        color = Color.White
+                    )
+                }
+            }
 
-            // Nombre de la comida
-            Text(
-                text = food.name,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
-
-            // Calificación con estrella
+            // Sección con la estrella (rating) y nombre
             Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
+                horizontalArrangement = Arrangement.Start
             ) {
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = "Rating",
-                    tint = Color(0xFFFFC107),
+                    tint = Color(0xFF4CAF50),
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = "4.5")
-            }
-
-
-            Box(
-                modifier = Modifier
-                    .padding(bottom = 8.dp)
-                    .clip(MaterialTheme.shapes.small)
-                    .background(Color(0xFFFF5A5A))
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            ) {
                 Text(
-                    text = "$${food.price}",
-                    color = Color.White
+                    text = "${food.rating} ${food.name}",
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
